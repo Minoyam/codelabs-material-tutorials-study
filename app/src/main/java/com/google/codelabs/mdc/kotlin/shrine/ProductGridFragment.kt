@@ -2,7 +2,9 @@ package com.google.codelabs.mdc.kotlin.shrine
 
 import android.os.Bundle
 import android.view.*
+import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -31,7 +33,8 @@ class ProductGridFragment : Fragment() {
             false
         )
 
-        val adapter = StaggeredProductCardRecyclerViewAdapter(ProductEntry.initProductEntryList(resources))
+        val adapter =
+            StaggeredProductCardRecyclerViewAdapter(ProductEntry.initProductEntryList(resources))
         val largePadding = resources.getDimensionPixelSize(R.dimen.shr_product_grid_spacing)
         val smallPadding = resources.getDimensionPixelSize(R.dimen.shr_product_grid_spacing_small)
         binding.recyclerView.apply {
@@ -46,6 +49,18 @@ class ProductGridFragment : Fragment() {
         }
 
         (activity as AppCompatActivity).setSupportActionBar(binding.appBar)
+        binding.run {
+            productGrid.background =
+                context?.getDrawable(R.drawable.shr_product_grid_background_shape)
+            appBar.setNavigationOnClickListener(
+                NavigationIconClickListener(
+                    activity!!, productGrid,
+                    AccelerateDecelerateInterpolator(),
+                    ContextCompat.getDrawable(context!!, R.drawable.shr_branded_menu),
+                    ContextCompat.getDrawable(context!!, R.drawable.shr_close_menu)
+                )
+            )
+        }
         return binding.root
     }
 
