@@ -2,7 +2,9 @@ package com.google.codelabs.mdc.kotlin.shrine
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.google.codelabs.mdc.kotlin.shrine.databinding.ShrProductCardBinding
 
 import com.google.codelabs.mdc.kotlin.shrine.network.ProductEntry
 
@@ -12,12 +14,14 @@ import com.google.codelabs.mdc.kotlin.shrine.network.ProductEntry
 class ProductCardRecyclerViewAdapter(private val productList: List<ProductEntry>) : RecyclerView.Adapter<ProductCardViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductCardViewHolder {
-        val layoutView = LayoutInflater.from(parent.context).inflate(R.layout.shr_product_card, parent, false)
-        return ProductCardViewHolder(layoutView)
+        val binding = DataBindingUtil.inflate<ShrProductCardBinding>(LayoutInflater.from(parent.context),R.layout.shr_product_card,parent,false)
+        return ProductCardViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ProductCardViewHolder, position: Int) {
-        // TODO: Put ViewHolder binding code here in MDC-102
+        if (position < productList.size) {
+            holder.bind(productList[position])
+        }
     }
 
     override fun getItemCount(): Int {

@@ -1,16 +1,51 @@
 package com.google.codelabs.mdc.kotlin.shrine
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.codelabs.mdc.kotlin.shrine.databinding.ShrProductGridFragmentBinding
+import com.google.codelabs.mdc.kotlin.shrine.network.ProductEntry
 
 class ProductGridFragment : Fragment() {
 
+    private lateinit var binding: ShrProductGridFragmentBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.shr_product_grid_fragment, container, false)
+        binding = DataBindingUtil.inflate(
+            LayoutInflater.from(context),
+            R.layout.shr_product_grid_fragment,
+            container,
+            false
+        )
+
+        val adapter = ProductCardRecyclerViewAdapter(ProductEntry.initProductEntryList(resources))
+        val largePadding = resources.getDimensionPixelSize(R.dimen.shr_product_grid_spacing)
+        val smallPadding = resources.getDimensionPixelSize(R.dimen.shr_product_grid_spacing_small)
+        binding.recyclerView.apply {
+            this.adapter = adapter
+            layoutManager = GridLayoutManager(context, 2, RecyclerView.VERTICAL, false)
+            setHasFixedSize(true)
+            addItemDecoration(ProductGridItemDecoration(largePadding, smallPadding))
+        }
+
+        (activity as AppCompatActivity).setSupportActionBar(binding.appBar)
+        return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.shr_toolbar_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 }
