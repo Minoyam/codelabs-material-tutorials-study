@@ -25,18 +25,19 @@
                 android:layout_marginTop="48dp"
                 android:layout_marginBottom="16dp"
                 android:contentDescription="@string/shr_logo_content_description"
-                app:srcCompat="@drawable/shr_logo" />
+                app:srcCompat="@drawable/shr_logo"
+                app:tint="?android:attr/textColorPrimary" />
 
             <TextView
+                style="@style/TextAppearance.Shrine.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="132dp"
-                android:text="@string/shr_app_name"
-                android:textAllCaps="true"
-                android:textSize="16sp" />
+                android:text="@string/shr_app_name" />
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Shrine.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
@@ -49,6 +50,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/password_text_input"
+                style="@style/Widget.Shrine.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
@@ -68,13 +70,14 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/next_button"
+                    style="@style/Widget.Shrine.Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:text="@string/shr_button_next" />
 
                 <com.google.android.material.button.MaterialButton
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    style="@style/Widget.Shrine.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="12dp"
